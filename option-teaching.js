@@ -74,7 +74,7 @@ const CONCEPT_LIBRARY=[
  {name:'自然語言處理',keys:['自然語言處理','NLP','文字翻譯','情感分析'],note:'處理文字與語言的理解、分類、翻譯或生成；若核心輸入是影像像素，通常屬電腦視覺。'},
  {name:'電腦視覺',keys:['電腦視覺','圖像辨識','影像辨識','物件偵測'],note:'處理影像與影片內容，常見任務包含分類、物件偵測、分割與影像生成。'},
  {name:'語音技術',keys:['語音辨識','語音合成','聲音辨識'],note:'語音辨識把聲音轉成文字；語音合成把文字轉為聲音，兩者方向不同。'},
- {name:'專家系統',keys:['專家系統','知識庫','推論引擎'],note:'以人工整理的知識與規則進行推論，典型元件是知識庫與推論引擎，不一定透過資料自動學習。'},
+ {name:'專家系統',keys:['專家系統','推論引擎'],note:'以人工整理的知識與規則進行推論，典型元件是知識庫與推論引擎，不一定透過資料自動學習。'},
  {name:'自監督學習',keys:['自監督學習','Self-supervised'],note:'從資料本身建立預測目標作為訓練訊號，減少人工標記需求；大型語言模型的預訓練常採此方式。'},
  {name:'遷移學習',keys:['遷移學習','Transfer Learning','預訓練模型'],note:'把在大型資料上學到的表示轉用到新任務，可降低新任務所需資料與訓練成本。'},
  {name:'集成學習',keys:['集成學習','Ensemble','Bagging','Boosting'],note:'組合多個模型降低誤差；Bagging 偏向降低變異，Boosting 依序強化前面模型的錯誤案例。'},
@@ -102,9 +102,39 @@ const CONCEPT_LIBRARY=[
  {name:'混合雲／邊緣運算',keys:['邊緣運算','Edge AI','混合雲'],note:'邊緣運算靠近資料來源推論，可降低延遲與傳輸需求；雲端較容易集中擴充算力，選擇取決於時效、隱私與成本。'}
 ];
 
+const OPTION_DOMAINS=[
+ {name:'內容生成應用',keys:['生成','草擬','產出','撰寫','摘要','翻譯','回覆內容'],note:'用模型建立新文字、影像或其他內容；在題目詢問生成式 AI 的應用場景時可能成立。'},
+ {name:'預測與風險評分',keys:['預測','風險分數','機率','趨勢','需求量'],note:'利用歷史資料估計未來數值、機率或風險；在預測型 AI 題目中可能成立。'},
+ {name:'分類與辨識',keys:['辨識','判斷類別','偵測','識別','是否為'],note:'把輸入判定為類別或找出目標；在影像辨識、異常偵測或分類題目中可能成立。'},
+ {name:'資料準備與品質',keys:['資料準備','清理','蒐集資料','資料品質','減少資料量','增加資料來源'],note:'屬於建模前的資料工作；只有在問題聚焦資料完整性、格式、尺度或代表性時才是主要答案。'},
+ {name:'需求分析與導入規劃',keys:['需求分析','盤點需求','使用者需求','可行性','效益評估'],note:'屬於 AI 專案前期規劃，用來確認問題、價值、使用者與限制；不是模型訓練或部署本身。'},
+ {name:'模型選擇',keys:['模型選擇','選擇演算法','比較模型'],note:'依任務型態、資料量、可解釋性、效能與成本挑選演算法；屬於建模階段，不是資料前處理。'},
+ {name:'模型訓練與最佳化',keys:['訓練','調整模型','增加特徵','縮短訓練','學習率'],note:'屬於模型建立與改善階段；適用於模型尚未定型、需要降低誤差或改善泛化的情境。'},
+ {name:'部署與維運',keys:['部署','上線','監控','監測','維運','回滾'],note:'屬於模型完成後的上線與持續管理；在題目詢問正式服務、漂移或效能退化時可能成立。'},
+ {name:'運算效能與硬體',keys:['運算速度','硬體','GPU','記憶體','壓縮模型','提升速度','延遲'],note:'處理算力、儲存、延遲或成本問題；它不直接等同模型準確性、倫理或資料品質。'},
+ {name:'成本與資源管理',keys:['成本','費用','預算','節省成本','人力'],note:'屬於商業與資源考量；是否合理還要同時評估品質、風險、效益與維運。'},
+ {name:'全自動化策略',keys:['全面轉換','自動回答所有','不需要人力','完全自動','取代所有'],note:'追求最大程度自動化；只適合低風險、規則清楚且已有完整監控與例外處理的情境，高風險任務通常仍需人工監督。'},
+ {name:'人機協作策略',keys:['人工審核','人員審核','人工覆核','協助草擬','人機協作'],note:'由 AI 提升速度、人類負責品質與最終判斷；特別適合生成內容或高風險決策的導入初期。'},
+ {name:'保守或不導入策略',keys:['保持原狀','完全避免','禁止使用','不採用','暫不調整'],note:'以避免風險為主，但也會放棄改善機會；通常應先評估能否用小規模驗證與控制措施降低風險。'},
+ {name:'隱私與安全控制',keys:['加密','匿名化','去識別','存取權限','安全','資安'],note:'用來保護資料與系統；在涉及敏感資料、攻擊或未授權存取時可能成立，但不能取代模型品質評估。'},
+ {name:'倫理與治理措施',keys:['偏見','偏誤','公平','申訴','透明','問責','倫理'],note:'處理差別影響、責任與權益保障；高影響 AI 除技術指標外也需要這類治理措施。'},
+ {name:'解釋與溝通工具',keys:['解釋','特徵貢獻','影響程度','熱力圖','視覺化'],note:'用來說明模型如何得到結果；不同工具分別適用個別案例、全域趨勢或影像像素，不能互相取代。'},
+ {name:'資料分析與洞察',keys:['分析','數據挖掘','統計','報表','洞察'],note:'從既有資料找出規律或描述現況；它與直接生成新內容、即時控制或正式部署是不同工作階段。'},
+ {name:'工具或流程操作',keys:['測試','清理記憶體','壓縮資料','資料檢索','呼叫工具'],note:'描述某個技術操作；只有當操作真正解決題目指定問題時才是合適答案。'}
+];
+
 function matchedConcepts(text){
  const lower=String(text).toLowerCase();
  return CONCEPT_LIBRARY.filter(c=>c.keys.some(k=>lower.includes(k.toLowerCase()))).slice(0,2);
+}
+
+function optionDomain(text,scope){
+ const lower=String(text).toLowerCase();
+ const matches=[];
+ OPTION_DOMAINS.forEach(d=>d.keys.forEach(k=>{if(lower.includes(k.toLowerCase()))matches.push({domain:d,length:k.length})}));
+ const domain=matches.sort((a,b)=>b.length-a.length)[0]?.domain;
+ if(domain)return domain;
+ return {name:(scope.split('｜').pop()||'本章情境'),note:scopeTeaching(scope)};
 }
 
 function scopeTeaching(scope){
@@ -134,20 +164,22 @@ function optionTeaching(q,index){
  const concepts=matchedConcepts(option);
  const answerConcepts=matchedConcepts(answer+' '+q.explanation);
  const negative=isNegativeQuestion(q.question);
+ const domain=optionDomain(option,q.scope);
  const conceptTeaching=concepts.length
-  ?concepts.map(c=>`「${c.name}」：${c.note}`).join(' ')
-  :scopeTeaching(q.scope);
+  ?concepts.map(c=>`${c.name}：${c.note}`).join(' ')
+  :`${domain.name}：${domain.note}`;
+ const classification=concepts.length?concepts.map(c=>c.name).join('／'):domain.name;
 
  if(index===q.answer){
   return `為何能選：${q.explanation} 觀念補充：${conceptTeaching}`;
  }
 
  if(negative){
-  return `為何不選：本題要找的是例外或錯誤敘述；「${compactText(option)}」仍落在題目所承認的正確範圍，所以不是要找的答案。${conceptTeaching} 相較之下，正解「${compactText(answer)}」才違反本題判準：${q.explanation}`;
+  return `概念歸類：${classification}。${conceptTeaching} 這個敘述在上述範圍內仍然成立，因此在本題這種「找例外／錯誤」的問法中不能選；真正的例外由正解解析說明：${q.explanation}`;
  }
 
  const contrast=answerConcepts.length
   ?`本題要辨認的是「${answerConcepts.map(c=>c.name).join('／')}」的條件；`
   :`本題正確判斷是「${compactText(answer)}」；`;
- return `為何不選：${contrast}此選項的重點是「${compactText(option)}」，與正解「${compactText(answer)}」處理的對象、目的或條件不同。${conceptTeaching} 依題庫解析，兩者的關鍵分界是：${q.explanation}`;
+ return `概念歸類：${classification}。${conceptTeaching} 因此，若題目詢問「${classification}」的用途、方法或適用情境，這個選項可能成立；但本題需要的是${answerConcepts.length?'「'+answerConcepts.map(c=>c.name).join('／')+'」':'另一項指定條件'}。本題判準：${q.explanation}`;
 }

@@ -1,4 +1,4 @@
-const CACHE='ipas-ai-quiz-v4-option-teaching';
+const CACHE='ipas-ai-quiz-v5-concept-context';
 const FILES=['./','./index.html','./option-teaching.js','./manifest.webmanifest','./icon.svg','./study-guide-subject-1.pdf','./study-guide-subject-2.pdf'];
 
 self.addEventListener('install',event=>{
