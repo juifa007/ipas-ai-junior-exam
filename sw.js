@@ -1,5 +1,5 @@
-const CACHE='ipas-ai-quiz-v2-learning';
-const FILES=['./','./index.html','./manifest.webmanifest','./icon.svg','./study-guide-subject-1.pdf','./study-guide-subject-2.pdf'];
+const CACHE='ipas-ai-quiz-v4-option-teaching';
+const FILES=['./','./index.html','./option-teaching.js','./manifest.webmanifest','./icon.svg','./study-guide-subject-1.pdf','./study-guide-subject-2.pdf'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
