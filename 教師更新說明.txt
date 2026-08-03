@@ -1,0 +1,27 @@
+iPAS AI 應用規劃師初級｜隨身答題 v1.1 穩定測試版
+
+本版以原本單一 HTML 答題系統為基礎，補強答題中斷與恢復機制。
+
+更新重點：
+1. 答題中會自動保存目前進度。
+2. 重新開啟網頁後，首頁會顯示「尚有未完成答題」。
+3. 可按「繼續答題」接續原本測驗。
+4. 可按「放棄本次答題」清除未完成測驗。
+5. 答題中點首頁、錯題本、設定時，會先提醒是否暫時離開。
+6. 匯出進度 JSON 時，會包含未完成答題狀態。
+7. 匯入進度 JSON 後，也可恢復未完成答題。
+8. 加入 manifest.webmanifest、sw.js、icon.svg，方便 GitHub Pages 使用與手機加入主畫面。
+
+GitHub Pages 上傳方式：
+請將本資料夾內 5 個檔案放在 repository 根目錄：
+- index.html
+- manifest.webmanifest
+- sw.js
+- icon.svg
+- 教師更新說明.txt
+
+設定：
+Settings → Pages → Deploy from a branch → main → /root → Save
+
+注意：
+GitHub Pages 是放網站，不是資料庫。使用者答題進度仍儲存在各自裝置的瀏覽器中，請定期到「設定」匯出進度 JSON 備份。
