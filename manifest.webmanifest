@@ -1,7 +1,7 @@
 {
   "name": "iPAS AI 應用規劃師初級｜隨身答題",
   "short_name": "iPAS AI 答題",
-  "description": "iPAS AI 應用規劃師初級考古題隨身練習系統",
+  "description": "iPAS AI 應用規劃師初級考古題隨身練習、歷史紀錄與學習指引頁碼連結系統",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

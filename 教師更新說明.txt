@@ -1,27 +1,10 @@
-iPAS AI 應用規劃師初級｜隨身答題 v1.1 穩定測試版
+iPAS AI 應用規劃師初級｜v1.5 歷史紀錄排序修正版
 
-本版以原本單一 HTML 答題系統為基礎，補強答題中斷與恢復機制。
+本版修正：
+1. 歷史紀錄的查看範圍順序，改為與首頁題目範圍一致。
+2. 移除歷史紀錄下拉選單中重複的「全部」選項，只保留「全部題庫」。
+3. 題目範圍固定依官方學習指引排序：先科目一四項，再科目二三項。
+4. 保留 v1.4 的官方分類、PDF 學習指引頁碼連結、歷史紀錄近五次保存功能。
 
-更新重點：
-1. 答題中會自動保存目前進度。
-2. 重新開啟網頁後，首頁會顯示「尚有未完成答題」。
-3. 可按「繼續答題」接續原本測驗。
-4. 可按「放棄本次答題」清除未完成測驗。
-5. 答題中點首頁、錯題本、設定時，會先提醒是否暫時離開。
-6. 匯出進度 JSON 時，會包含未完成答題狀態。
-7. 匯入進度 JSON 後，也可恢復未完成答題。
-8. 加入 manifest.webmanifest、sw.js、icon.svg，方便 GitHub Pages 使用與手機加入主畫面。
-
-GitHub Pages 上傳方式：
-請將本資料夾內 5 個檔案放在 repository 根目錄：
-- index.html
-- manifest.webmanifest
-- sw.js
-- icon.svg
-- 教師更新說明.txt
-
-設定：
-Settings → Pages → Deploy from a branch → main → /root → Save
-
-注意：
-GitHub Pages 是放網站，不是資料庫。使用者答題進度仍儲存在各自裝置的瀏覽器中，請定期到「設定」匯出進度 JSON 備份。
+上傳 GitHub Pages 時，請將本資料夾 7 個檔案全部放在同一層目錄：
+index.html、manifest.webmanifest、sw.js、icon.svg、study-guide-subject-1.pdf、study-guide-subject-2.pdf、教師更新說明.txt
