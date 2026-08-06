@@ -1,0 +1,15 @@
+{
+  "name": "iPAS AI 應用規劃師初級｜雙模式學習版",
+  "short_name": "iPAS AI v3",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f7fb",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
