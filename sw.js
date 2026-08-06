@@ -1,4 +1,4 @@
-const CACHE='ipas-ai-quiz-v1-6-official-scopes';
+const CACHE='ipas-ai-quiz-v1-7-official-scopes';
 const FILES=['./','./index.html','./manifest.webmanifest','./icon.svg','./study-guide-subject-1.pdf','./study-guide-subject-2.pdf'];
 
 self.addEventListener('install',event=>{

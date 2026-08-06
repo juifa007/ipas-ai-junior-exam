@@ -1,16 +1,18 @@
-iPAS AI 應用規劃師初級 v1.6｜詳解教學版
+iPAS AI 應用規劃師初級 v1.7｜題目關鍵詳解版
 
 本版基礎：
-- 以 v1.5 歷史紀錄排序修正版為基礎。
-- 保留官方 2 科 7 個評鑑主題分類、歷史紀錄、錯題本、JSON 匯出／匯入、PDF 頁碼連結。
+- 以 v1.6 詳解教學版為基礎。
+- 保留官方 2 科 7 個評鑑主題分類。
+- 保留歷史紀錄、錯題本、未完成答題、JSON 匯出／匯入。
+- 保留科目一與科目二學習指引 PDF 頁碼連結。
 
 本版修正：
-1. 解析區由條列式提醒改為「正確答案＋詳解教學＋參考指引」。
-2. 移除原本學習指引的 1、2、3 條列式建議。
-3. 詳解會依題目範圍與關鍵字，補上較完整的教學式說明。
-4. 保留可點擊的科目一、科目二學習指引 PDF 頁碼連結。
-5. 更新 GitHub Pages 快取版本為 ipas-ai-quiz-v1-6。
+1. 詳解不再每題都套用同一段章節通用文字。
+2. 新增題目關鍵字詳解機制，依題幹、選項與簡答解析判斷細部考點。
+3. 針對人工智慧概念、資料處理、機器學習、生成式 AI、No Code／Low Code、導入治理等常見考點補上個別教學段落。
+4. 詳解格式調整為「簡答 → 題目關鍵詳解 → 指引頁碼連結」，避免變成只背考古題答案。
+5. 更新 GitHub Pages 快取版本為 ipas-ai-quiz-v1-7。
 
 重要提醒：
-- 請將 index.html、manifest.webmanifest、sw.js、icon.svg、教師更新說明.txt、study-guide-subject-1.pdf、study-guide-subject-2.pdf 七個檔案放在同一層。
-- 如果未上傳兩份 PDF，答題功能仍可使用，但頁碼連結無法開啟。
+- 上傳 GitHub Pages 時，請一併上傳 index.html、manifest.webmanifest、sw.js、icon.svg、教師更新說明.txt、study-guide-subject-1.pdf、study-guide-subject-2.pdf。
+- 若手機或電腦仍顯示舊版，請重新整理、用無痕視窗測試，或等待 GitHub Pages 快取更新。
