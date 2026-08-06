@@ -60,6 +60,9 @@ select,input[type=number]{width:100%;border:1px solid #cbdad6;border-radius:12px
 .guide-box{margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;line-height:1.7}
 
 .guide-answer{font-size:1rem;line-height:1.85}
+.teaching-detail{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);line-height:1.9}
+.teaching-detail p{margin:8px 0}
+.ref-head{margin-bottom:8px;line-height:1.75}
 .guide-answer .correct-choice{font-weight:900;color:var(--primary2)}
 .guide-ref-list{display:grid;gap:8px;margin-top:10px}
 .guide-ref{display:block;padding:10px 12px;border:1px solid #b8ded7;border-radius:12px;background:#f4fffc;color:#0f766e;text-decoration:none;font-weight:800;line-height:1.55}
@@ -80,7 +83,7 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
 <div class="app">
 <header>
   <div class="logo">AI</div>
-  <div><h1>iPAS AI 應用規劃師初級</h1><div class="sub">隨身答題遊戲・v1.5・共 1297 題</div></div>
+  <div><h1>iPAS AI 應用規劃師初級</h1><div class="sub">隨身答題遊戲・v1.6・共 1297 題</div></div>
 </header>
 
 <section id="home" class="screen active">
@@ -181,7 +184,7 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
       <button class="btn warn" onclick="resetProgress()">清除全部紀錄</button>
     </div>
     <hr>
-    <div class="small">版本：v1.5 官方分類修正版。題目範圍已改回 iPAS 學習指引的 2 科 7 個正式評鑑主題，解析區會連到科目一與科目二學習指引 PDF 頁碼；不同瀏覽器的紀錄不會互通。</div>
+    <div class="small">版本：v1.6 詳解教學版。題目範圍已改回 iPAS 學習指引的 2 科 7 個正式評鑑主題，解析區會連到科目一與科目二學習指引 PDF 頁碼；不同瀏覽器的紀錄不會互通。</div>
   </div>
 </section>
 </div>
@@ -442,21 +445,51 @@ function guideLinksHTML(links){
  if(!links||!links.length)return '<div class="small">此題尚未建立明確頁碼對應，請依題目範圍回到學習指引目錄查找。</div>';
  return `<div class="guide-ref-list">${links.map(x=>`<a class="guide-ref" href="${escapeHtml(x.file)}#page=${Number(x.page)}" target="_blank" rel="noopener">${escapeHtml(x.title)}</a>`).join('')}</div>`;
 }
+const SCOPE_TEACHING_DETAIL={
+ '科目一｜人工智慧概念':'人工智慧基礎概念題的核心，不是背產業名稱，而是判斷 AI 在該情境中模擬的是哪一種人類智慧任務。學習指引將 AI 放在「能執行原本需要人類智慧才能完成的任務」脈絡下理解，包含學習、推理、解決問題與感知環境等能力；同時也把 AI 依功能區分為分析型、預測型與生成型。作答時應先看題目描述的是資料洞察、未來趨勢推估、內容生成，還是治理責任與風險控管。若題目出現專家系統、規則庫、知識庫、推理引擎等語彙，重點通常在於以明確規則模擬專家判斷，而不是大量資料訓練或生成新內容。',
+ '科目一｜資料處理與分析概念':'資料處理與分析概念題通常在考 AI 專案的基礎工程。學習指引把資料蒐集、資料清洗、資料轉換與資料分析視為將原始資料轉成可用資訊的流程；其中資料清洗處理遺缺值、重複值、錯誤值與離群值，資料轉換則包含格式轉換、型態轉換、正規化、標準化、離散化與降維。作答時不要只看技術名詞，而要判斷題目中的資料問題發生在哪個階段：是資料來源與型態、資料品質、數值尺度、隱私安全，還是後續分析方法。',
+ '科目一｜機器學習概念':'機器學習概念題的重點在於模型如何從資料中學習規律，並用於分類、預測、分群、序列判斷或影像辨識等任務。學習指引將機器學習視為 AI 技術底層的重要組成，並連結監督式、非監督式與強化學習等基本原理。作答時應先分辨資料是否有標記、模型輸出是類別還是數值、任務是否具有時間順序或回饋機制，再判斷適合的模型、評估方式或改善策略。若題目提到過擬合、交叉驗證、泛化能力、模型部署或監控，也應回到模型學習效果與實際應用穩定性的角度理解。',
+ '科目一｜鑑別式 AI 與生成式 AI 概念':'鑑別式 AI 與生成式 AI 的差異，是初級考試非常容易混淆的觀念。鑑別式 AI 的重點在於判斷、分類、偵測或預測既有資料的類別與結果；生成式 AI 則重點在於依照提示或輸入產生新內容，例如文字、圖像、語音、程式碼或摘要。作答時應回到任務本質，而不是看到 AI 工具就直接判斷為生成式 AI。若題目描述的是風險分數、詐欺偵測、疾病分類或影像辨識，通常偏向鑑別或預測；若題目描述的是草擬內容、生成圖片、產出文案或摘要，才是生成式 AI 的典型應用。',
+ '科目二｜No code / Low code 概念':'No Code 與 Low Code 題目主要考開發門檻、使用者技術能力與應用彈性。學習指引說明，No Code 透過視覺化介面與拖放操作，讓非技術背景者可以快速建立應用或原型；Low Code 則保留少量程式碼擴充能力，適合需要整合、客製化或複雜流程的情境。作答時應看題目中的使用者是否具備技術背景、系統是否需要與既有資料庫或企業流程整合、是否需要高度客製化，以及企業是否重視安全、成本、技術支援與後續擴充。',
+ '科目二｜生成式 AI 應用領域與工具使用':'生成式 AI 應用與工具使用題的核心，是判斷任務是否以「生成或輔助產出內容」為主。學習指引將生成式 AI 連結到文字、圖像、語音、程式碼與多種產業應用，並強調工具使用時仍要注意輸入品質、情境設定、資料來源與人工審核。作答時不要把所有 AI 任務都歸為生成式 AI；分類、偵測、風險評分與純預測通常不是內容生成。若題目出現客服回覆草稿、行銷文案、摘要、圖片生成、提示詞或 RAG 輔助查找資料，則應回到生成式 AI 工具如何被正確使用與管控來判斷。',
+ '科目二｜生成式 AI 導入評估規劃':'生成式 AI 導入評估規劃題不是單純問工具功能，而是問企業如何把 AI 放進流程並控制風險。學習指引將本主題分成導入評估、導入規劃與風險管理，重點包含業務需求、資料條件、可行性、成本效益、人機協作、平台整合、資訊安全、隱私保護、偏見與倫理責任。作答時應從「能不能導入、值不值得導入、如何小規模驗證、誰負責審核、如何持續維運」來判斷。若題目提到 POC、KPI、跨部門協作、資料隱私或模型幻覺，通常都不是單一技術題，而是導入治理與風險控管題。'
+};
+const KEYWORD_TEACHING_DETAIL=[
+ {keys:['專家系統','規則庫','推理引擎','知識庫'],detail:'本題出現專家系統相關語彙時，應特別注意它與機器學習模型的差異。專家系統的知識來自人類專家整理出的規則與經驗，再由推理引擎依據輸入條件推導結論；它的核心不是從大量資料中自動學習模式，而是將可明確表述的專業判斷流程系統化。因此，看到「規則、知識庫、推理、模擬專家決策」時，通常應判斷為專家系統。'},
+ {keys:['時間序列','預測未來','趨勢','股票','氣溫','銷售量'],detail:'時間序列與預測題的判斷重點在「時間順序」與「未來趨勢」。學習指引中預測型 AI 是依據歷史資料與數據推估未來的趨勢或行為，因此像氣溫、股價、銷售量、交通流量這類會隨時間變化的資料，通常要從預測型 AI 或序列模型角度理解，而不是單純分類或內容生成。'},
+ {keys:['缺失','遺缺','Missing','插補','重複','離群','Outlier','清洗'],detail:'資料清洗題通常會描述資料中存在遺缺值、重複值、錯誤值、格式不一致或離群值。學習指引強調，資料清洗的目的在於提升資料完整性與可靠性，使後續模型訓練或分析能建立在較穩定的資料品質上。因此，作答時要先確認題目問的是刪除、填補、修正還是保留異常，再依資料情境選擇合理處理方式。'},
+ {keys:['正規化','標準化','Z-score','Normalization','Standardization','資料洩漏','Data Leakage'],detail:'正規化與標準化都屬於資料轉換，但目的與做法不同。學習指引把資料轉換視為將資料整理成適合分析的格式；其中正規化常用來縮放數值範圍，標準化則常使資料以平均值與標準差為基準。題目若出現不同尺度特徵、Z-score、0 到 1 範圍或訓練測試資料處理順序，重點就在於避免尺度影響模型學習，並注意不要讓測試資料資訊提前洩漏到訓練流程。'},
+ {keys:['監督式','非監督式','強化學習','分群','分類','迴歸','標記資料'],detail:'監督式、非監督式與強化學習的區分，應從資料與回饋型態判斷。監督式學習需要輸入與正確答案的配對資料，常用於分類與迴歸；非監督式學習沒有標記答案，常用於分群或探索資料結構；強化學習則是透過環境回饋、獎勵與懲罰來調整行為策略。'},
+ {keys:['CNN','卷積','影像','電腦視覺','物件偵測','Bounding Box','Saliency'],detail:'影像與電腦視覺題通常要回到非結構化資料與深度學習的應用。學習指引提到深度學習適合處理影像、語音與自然語言等非結構化資料；因此，CNN、物件偵測、顯著性熱力圖或醫療影像輔助診斷等題目，重點在於模型如何從畫面中擷取空間特徵並支援判斷。'},
+ {keys:['RNN','LSTM','序列','Transformer','BERT','Attention','長距離依賴'],detail:'序列模型題要注意資料是否具有前後關係。RNN 與 LSTM 常被用來處理具時間順序或上下文依賴的資料；Transformer 與 Attention 則強調在序列中聚焦重要資訊並處理長距離依賴。若題目涉及語言理解、翻譯、時間序列或上下文判斷，應從序列資料與注意力機制的角度解題。'},
+ {keys:['鑑別式','生成式','生成新內容','圖片生成','文本生成','Diffusion','GAN','VAE','LLM','多模態'],detail:'生成式與鑑別式 AI 題目最重要的是不要被工具名稱干擾。生成式 AI 強調產出新內容，例如文字、圖像、語音或程式碼；鑑別式 AI 強調從既有資料中做分類、判斷或預測。GAN、擴散模型、LLM 與多模態生成工具多與內容產生有關，但若題目問的是偵測、分類或風險分數，則未必屬於生成任務。'},
+ {keys:['No Code','Low Code','Vibe Coding','無程式','低程式','平台'],detail:'No Code／Low Code 題目常把「快速開發」與「企業級整合」放在一起比較。No Code 適合非技術人員用視覺化方式快速做出原型或簡單流程；Low Code 則適合需要少量程式碼、系統整合、客製化邏輯或較複雜應用的場景。平台選擇題還要同時考量安全、成本、可擴充性與技術支援。'},
+ {keys:['導入','POC','KPI','可行性','專案','跨部門','部署','維運'],detail:'導入規劃題應把生成式 AI 視為一個專案，而不是只看工具功能。POC 是用小範圍驗證可行性與價值，KPI 則用來判斷導入後是否真的改善效率、品質或成本。若題目提到跨部門協作、需求盤點、部署維運或成效追蹤，重點通常是導入流程與管理，而不是單一模型技術。'},
+ {keys:['隱私','個資','匿名化','偽名化','資安','偏見','倫理','公平','可解釋','責任','合規','風險'],detail:'風險治理題要同時考量技術、法律與組織責任。學習指引提到生成式 AI 可能涉及輸出不準確、資料隱私、安全合規、偏見歧視與倫理風險；因此，正確作法通常會包含資料保護、權限控管、人工審核、公平性檢測、可解釋性與責任歸屬，而不是單純追求自動化或降低成本。'},
+ {keys:['提示詞','Prompt','RAG','向量','檢索','知識庫','Agent','工具調用'],detail:'提示工程、RAG 與 Agent 題目雖然不一定在官方目錄中獨立成章，但可放在生成式 AI 工具使用與導入規劃脈絡理解。提示詞會影響模型輸出品質，RAG 透過檢索外部知識補足模型記憶限制，Agent 則強調工具調用與任務流程。作答時要分辨題目是在問輸入設計、知識來源、系統流程，還是風險控管。'}
+];
+function getTeachingDetail(q,info){
+ const text=[q.question,q.explanation,...(q.options||[])].join(' ');
+ const extra=KEYWORD_TEACHING_DETAIL.find(g=>g.keys.some(k=>text.toLowerCase().includes(String(k).toLowerCase())));
+ const base=SCOPE_TEACHING_DETAIL[q.scope]||'本題應先確認題目情境、任務動詞與正確答案的概念關係，再回到對應學習指引章節複習。作答重點不在背選項，而是理解題目描述的 AI 任務、資料型態、工具使用方式或導入風險。';
+ const questionReason=q.explanation?`本題原解析指出：${q.explanation} 這句話可以視為解題入口；接著要把它放回學習指引的章節脈絡，理解該概念為什麼成立。`:'';
+ return [base, extra?extra.detail:'', questionReason].filter(Boolean);
+}
 function buildDetailedAnswer(q){
  const info=getGuideInfo(q);
  const correct=escapeHtml(q.options[q.answer]);
- const explanation=escapeHtml(q.explanation||'本題暫無內建解析，請依正確答案與學習指引頁碼回到原文複習。');
- return `<div class="guide-answer"><div class="correct-choice">正確答案：${correctLetter(q)}｜${correct}</div><p>${explanation}</p><p><b>判斷重點：</b>${escapeHtml(info.focus)}</p></div>`;
+ const explanation=escapeHtml(q.explanation||'本題暫無內建簡答，請依正確答案與學習指引頁碼回到原文複習。');
+ const details=getTeachingDetail(q,info).map(p=>`<p>${escapeHtml(p)}</p>`).join('');
+ return `<div class="guide-answer"><div class="correct-choice">正確答案：${correctLetter(q)}｜${correct}</div><p>${explanation}</p><div class="teaching-detail"><div class="guide-title">詳解教學</div>${details}</div></div>`;
 }
 function buildExplanationHTML(q,choice){
  const isRight=choice===q.answer;
  const info=getGuideInfo(q);
- const guide=(info.tips||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('');
  const scopeArg=JSON.stringify(q.scope).replace(/</g,'\\u003c').replace(/'/g,'\\u0027');
  const note=info.note?`<div class="guide-note">${escapeHtml(info.note)}</div>`:'';
  return `<b>${isRight?'答對了！':'答錯了。'} 正確答案是 ${correctLetter(q)}：${escapeHtml(q.options[q.answer])}</b>
   <div class="guide-box"><div class="guide-title">正確答案解析</div>${buildDetailedAnswer(q)}</div>
-  <div class="guide-box"><div class="guide-title">學習指引與頁碼連結</div><div class="small">本題範圍：${escapeHtml(q.scope)}<br>對應章節：${escapeHtml(info.chapter)}</div><ol style="margin:8px 0 0 20px;padding:0">${guide}</ol>${guideLinksHTML(info.links)}${note}<div class="actions"><button class="btn secondary" type="button" onclick='practiceScope(${scopeArg})'>回首頁練習本主題</button></div></div>`;
+  <div class="guide-box"><div class="guide-title">參考指引與頁碼連結</div><div class="ref-head small">本題範圍：${escapeHtml(q.scope)}<br>對應章節：${escapeHtml(info.chapter)}<br>請點選下方頁碼，回到 iPAS 學習指引原文位置複習。</div>${guideLinksHTML(info.links)}${note}<div class="actions"><button class="btn secondary" type="button" onclick='practiceScope(${scopeArg})'>回首頁練習本主題</button></div></div>`;
 }
 function practiceScope(scope){
  showScreen('home',true);
@@ -629,7 +662,7 @@ function renderWrongBook(kind='wrong',button){
 function exportProgress(){
  persistActiveQuiz();
  const blob=new Blob([JSON.stringify(progress,null,2)],{type:'application/json'});
- const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='iPAS_AI_答題進度_v1.5.json';a.click();URL.revokeObjectURL(a.href);
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='iPAS_AI_答題進度_v1.6.json';a.click();URL.revokeObjectURL(a.href);
 }
 function importProgress(e){
  const file=e.target.files[0];if(!file)return;

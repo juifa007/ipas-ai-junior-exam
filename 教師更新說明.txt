@@ -1,10 +1,16 @@
-iPAS AI 應用規劃師初級｜v1.5 歷史紀錄排序修正版
+iPAS AI 應用規劃師初級 v1.6｜詳解教學版
+
+本版基礎：
+- 以 v1.5 歷史紀錄排序修正版為基礎。
+- 保留官方 2 科 7 個評鑑主題分類、歷史紀錄、錯題本、JSON 匯出／匯入、PDF 頁碼連結。
 
 本版修正：
-1. 歷史紀錄的查看範圍順序，改為與首頁題目範圍一致。
-2. 移除歷史紀錄下拉選單中重複的「全部」選項，只保留「全部題庫」。
-3. 題目範圍固定依官方學習指引排序：先科目一四項，再科目二三項。
-4. 保留 v1.4 的官方分類、PDF 學習指引頁碼連結、歷史紀錄近五次保存功能。
+1. 解析區由條列式提醒改為「正確答案＋詳解教學＋參考指引」。
+2. 移除原本學習指引的 1、2、3 條列式建議。
+3. 詳解會依題目範圍與關鍵字，補上較完整的教學式說明。
+4. 保留可點擊的科目一、科目二學習指引 PDF 頁碼連結。
+5. 更新 GitHub Pages 快取版本為 ipas-ai-quiz-v1-6。
 
-上傳 GitHub Pages 時，請將本資料夾 7 個檔案全部放在同一層目錄：
-index.html、manifest.webmanifest、sw.js、icon.svg、study-guide-subject-1.pdf、study-guide-subject-2.pdf、教師更新說明.txt
+重要提醒：
+- 請將 index.html、manifest.webmanifest、sw.js、icon.svg、教師更新說明.txt、study-guide-subject-1.pdf、study-guide-subject-2.pdf 七個檔案放在同一層。
+- 如果未上傳兩份 PDF，答題功能仍可使用，但頁碼連結無法開啟。
